@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(color: Colors.white, width: 2),
                           image: DecorationImage(
-                            image: NetworkImage('https://s3.amazonaws.com/uifaces/faces/twitter/ahmetalpbalkan/128.jpg'),
+                            image: NetworkImage('https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'),
                           ),
                         ),
                         // child: Padding(

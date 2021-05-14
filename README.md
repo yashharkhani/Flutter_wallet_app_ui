@@ -1,16 +1,6 @@
-# wallet_ui
+# Wallet app ui
 
-A new Flutter project.
+A Flutter ui design for [https://dribbble.com/shots/7036184/attachments/36347?mode=media](https://dribbble.com/shots/7036184/attachments/36347?mode=media)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="assets\screenshots\Screenshot_2021-05-14-21-57-26-314_com.example.wallet_ui.jpg" width="350" style="margin-right: 20px"/>
+<img src="assets\screenshots\Screenshot_2021-05-14-21-57-35-309_com.example.wallet_ui.jpg" width="350" />
