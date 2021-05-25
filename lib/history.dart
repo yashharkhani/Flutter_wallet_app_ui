@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wallet_ui/bottom_navbar.dart';
 import 'package:wallet_ui/homepage.dart';
 import 'package:wallet_ui/theme_utils.dart';
+import 'package:wallet_ui/transaction_details_widget.dart';
 
 class HistoryPage extends StatefulWidget {
   HistoryPage({Key key}) : super(key: key);
@@ -12,6 +14,168 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   ThemeUtils theme = new ThemeUtils();
+  dynamic expenseData = [
+    {
+      'today': [
+        {
+          'name': 'Cafe',
+          'image': Icons.emoji_food_beverage_outlined,
+          'amount': 50.68,
+          'isSpend': true,
+          'date': 'Aug 26',
+          'expenseDetail': 'Eatly downtown'
+        },
+        {
+          'name': 'Transport',
+          'image': Icons.car_repair,
+          'amount': 15.23,
+          'isSpend': true,
+          'date': 'Aug 26',
+          'expenseDetail': 'Uber pool',
+        }
+      ]
+    },
+    {
+      'yesterday': [
+        {
+          'name': 'Payment',
+          'image': Icons.credit_card,
+          'amount': 500.00,
+          'isSpend': false,
+          'date': 'Aug 25',
+          'expenseDetail': 'Payment from',
+          'transferBy': 'Andre'
+        }
+      ]
+    },
+    {
+      'aug 24': [
+        {
+          'name': 'Transport',
+          'image': Icons.car_repair,
+          'amount': 59.52,
+          'isSpend': true,
+          'date': 'Aug 24',
+          'expenseDetail': 'Uber pool',
+        },
+        {
+          'name': 'Dine',
+          'image': Icons.emoji_food_beverage_outlined,
+          'amount': 47.52,
+          'isSpend': true,
+          'date': 'Aug 24',
+          'expenseDetail': 'Subway',
+        }
+      ]
+    },
+    {
+      'aug 23': [
+        {
+          'name': 'Payment',
+          'image': Icons.credit_card,
+          'amount': 500.00,
+          'isSpend': false,
+          'date': 'Aug 23',
+          'expenseDetail': 'Payment from',
+          'transferBy': 'Andre'
+        }
+      ]
+    },
+    {
+      'aug 22': [
+        {
+          'name': 'Payment',
+          'image': Icons.credit_card,
+          'amount': 1500.00,
+          'isSpend': false,
+          'date': 'Aug 22',
+          'expenseDetail': 'Payment from',
+          'transferBy': 'Harvey'
+        }
+      ]
+    },
+    {
+      'aug 21': [
+        {
+          'name': 'Cafe',
+          'image': Icons.emoji_food_beverage_outlined,
+          'amount': 50.68,
+          'isSpend': true,
+          'date': 'Aug 21',
+          'expenseDetail': 'Eatly downtown'
+        },
+        {
+          'name': 'Transport',
+          'image': Icons.car_repair,
+          'amount': 15.23,
+          'isSpend': true,
+          'date': 'Aug 21',
+          'expenseDetail': 'Uber pool',
+        }
+      ]
+    },
+    {
+      'aug 20': [
+        {
+          'name': 'Payment',
+          'image': Icons.credit_card,
+          'amount': 500.00,
+          'isSpend': false,
+          'date': 'Aug 20',
+          'expenseDetail': 'Payment from',
+          'transferBy': 'Andre'
+        }
+      ]
+    },
+    {
+      'aug 19': [
+        {
+          'name': 'Transport',
+          'image': Icons.car_repair,
+          'amount': 59.52,
+          'isSpend': true,
+          'date': 'Aug 19',
+          'expenseDetail': 'Uber pool',
+        },
+        {
+          'name': 'Dine',
+          'image': Icons.emoji_food_beverage_outlined,
+          'amount': 47.52,
+          'isSpend': true,
+          'date': 'Aug 19',
+          'expenseDetail': 'Subway',
+        }
+      ]
+    },
+    {
+      'aug 18': [
+        {
+          'name': 'Payment',
+          'image': Icons.credit_card,
+          'amount': 500.00,
+          'isSpend': false,
+          'date': 'Aug 18',
+          'expenseDetail': 'Payment from',
+          'transferBy': 'Andre'
+        }
+      ]
+    },
+    {
+      'aug 17': [
+        {
+          'name': 'Payment',
+          'image': Icons.credit_card,
+          'amount': 1500.00,
+          'isSpend': false,
+          'date': 'Aug 17',
+          'expenseDetail': 'Payment from',
+          'transferBy': 'Harvey'
+        }
+      ]
+    }
+  ];
+
+  String selectedFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -53,409 +217,147 @@ class _HistoryPageState extends State<HistoryPage> {
                               ),
                               SizedBox(height: 10),
                               Row(children: [
-                                Text('TODAY', style: TextStyle(color: Colors.blueGrey[200], fontFamily: theme.poppinsBold, fontSize: 16)),
-                              ]),
-                              SizedBox(height: 10),
-                              Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  child: ListView.separated(
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, index) => Divider(),
-                                      itemCount: 2,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                                          child: Row(children: [
-                                            Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Color(0xfff1f1f1)),
-                                                child: Icon(index == 0 ? Icons.emoji_food_beverage_outlined : Icons.car_repair,
-                                                    size: 30, color: Color(0xff1f3c88))),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                                child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text(index == 0 ? 'Cafe' : 'Transport',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                    Text(index == 0 ? '- \$50.68' : '- \$15.23',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                  ]),
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text(index == 0 ? 'Eataly downtown' : 'Uber pool',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                    Text('Aug 26',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                  ])
-                                                ]))
-                                          ]),
-                                        );
-                                      }),
+                                InkWell(
+                                  onTap: () {
+                                    selectedFilter = null;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(25)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      child: Center(
+                                          child: Opacity(
+                                              opacity: selectedFilter == null ? 1 : 0.4,
+                                              child: Text('All',
+                                                  style: TextStyle(color: Color(0xff070d59), fontFamily: theme.poppinsSemibold, fontSize: 16)))),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(children: [
-                                Text('YESTERDAY', style: TextStyle(color: Colors.blueGrey[200], fontFamily: theme.poppinsBold, fontSize: 16)),
-                              ]),
-                              SizedBox(height: 10),
-                              Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  child: ListView.separated(
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, index) => Divider(),
-                                      itemCount: 1,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                                          child: Row(children: [
-                                            Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Color(0xfff1f1f1)),
-                                                child: Icon(Icons.credit_card, size: 30, color: Color(0xff1f3c88))),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                                child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text('Payment',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                    Text('+ \$500.00',
-                                                        style: TextStyle(
-                                                            color: Colors.greenAccent[700],
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                  ]),
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Row(
-                                                      children: [
-                                                        Text('Payment from ',
-                                                            style: TextStyle(
-                                                                color: Color(0x99070d59),
-                                                                fontFamily: theme.poppinsRegular,
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w300)),
-                                                        Text('Andre',
-                                                            style: TextStyle(
-                                                                color: Color(0x99070d59),
-                                                                fontFamily: theme.poppinsRegular,
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w600)),
-                                                      ],
-                                                    ),
-                                                    Text('Aug 25',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                  ])
-                                                ]))
-                                          ]),
-                                        );
-                                      }),
+                                SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () {
+                                    selectedFilter = 'income';
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(25)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      child: Center(
+                                          child: Opacity(
+                                        opacity: selectedFilter != null && selectedFilter == 'income' ? 1 : 0.4,
+                                        child: Row(
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Positioned.fill(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.greenAccent),
+                                                    margin: EdgeInsets.all(3), // Modify this till it fills the color properly
+                                                  ),
+                                                ),
+                                                Icon(Icons.arrow_circle_down_outlined, color: Colors.white)
+                                              ],
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text('Income',
+                                                style: TextStyle(color: Color(0xff070d59), fontFamily: theme.poppinsSemibold, fontSize: 16)),
+                                          ],
+                                        ),
+                                      )),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(children: [
-                                Text('Aug 24', style: TextStyle(color: Colors.blueGrey[200], fontFamily: theme.poppinsBold, fontSize: 16)),
-                              ]),
-                              SizedBox(height: 10),
-                              Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  child: ListView.separated(
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, index) => Divider(),
-                                      itemCount: 2,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                                          child: Row(children: [
-                                            Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Color(0xfff1f1f1)),
-                                                child: Icon(index == 0 ? Icons.emoji_food_beverage_outlined : Icons.car_repair,
-                                                    size: 30, color: Color(0xff1f3c88))),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                                child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text(index == 0 ? 'Dine' : 'Transport',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                    Text(index == 0 ? '- \$34.56' : '- \$15.23',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                  ]),
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text(index == 0 ? 'Subway' : 'Uber pool',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                    Text('Aug 24',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                  ])
-                                                ]))
-                                          ]),
-                                        );
-                                      }),
+                                SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () {
+                                    selectedFilter = 'expense';
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 35,
+                                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(25)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                                      child: Center(
+                                          child: Opacity(
+                                        opacity: selectedFilter != null && selectedFilter == 'expense' ? 1 : 0.4,
+                                        child: Row(
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Positioned.fill(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.redAccent),
+                                                    margin: EdgeInsets.all(3), // Modify this till it fills the color properly
+                                                  ),
+                                                ),
+                                                Icon(Icons.arrow_circle_up_outlined, color: Colors.white)
+                                              ],
+                                            ),
+                                            SizedBox(width: 5),
+                                            Text('Expense',
+                                                style: TextStyle(color: Color(0xff070d59), fontFamily: theme.poppinsSemibold, fontSize: 16)),
+                                          ],
+                                        ),
+                                      )),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(children: [
-                                Text('Aug 23', style: TextStyle(color: Colors.blueGrey[200], fontFamily: theme.poppinsBold, fontSize: 16)),
                               ]),
-                              SizedBox(height: 10),
-                              Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  child: ListView.separated(
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, index) => Divider(),
-                                      itemCount: 1,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                                          child: Row(children: [
-                                            Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Color(0xfff1f1f1)),
-                                                child: Icon(Icons.credit_card, size: 30, color: Color(0xff1f3c88))),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                                child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text('Payment',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                    Text('+ \$150.00',
-                                                        style: TextStyle(
-                                                            color: Colors.greenAccent[700],
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                  ]),
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Row(
-                                                      children: [
-                                                        Text('Payment from ',
-                                                            style: TextStyle(
-                                                                color: Color(0x99070d59),
-                                                                fontFamily: theme.poppinsRegular,
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w300)),
-                                                        Text('Simon',
-                                                            style: TextStyle(
-                                                                color: Color(0x99070d59),
-                                                                fontFamily: theme.poppinsRegular,
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w600)),
-                                                      ],
-                                                    ),
-                                                    Text('Aug 23',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                  ])
-                                                ]))
-                                          ]),
-                                        );
-                                      }),
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(children: [
-                                Text('Aug 22', style: TextStyle(color: Colors.blueGrey[200], fontFamily: theme.poppinsBold, fontSize: 16)),
-                              ]),
-                              SizedBox(height: 10),
-                              Container(
-                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  child: ListView.separated(
-                                      shrinkWrap: true,
-                                      separatorBuilder: (context, index) => Divider(),
-                                      itemCount: 1,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                                          child: Row(children: [
-                                            Container(
-                                                width: 50,
-                                                height: 50,
-                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Color(0xfff1f1f1)),
-                                                child: Icon(Icons.credit_card, size: 30, color: Color(0xff1f3c88))),
-                                            SizedBox(width: 10),
-                                            Expanded(
-                                                child: Column(
-                                                    mainAxisSize: MainAxisSize.max,
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Text('Payment',
-                                                        style: TextStyle(
-                                                            color: Color(0xff070d59),
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                    Text('+ \$1500.00',
-                                                        style: TextStyle(
-                                                            color: Colors.greenAccent[700],
-                                                            fontFamily: theme.poppinsSemibold,
-                                                            fontSize: 18,
-                                                            fontWeight: FontWeight.w700)),
-                                                  ]),
-                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                    Row(
-                                                      children: [
-                                                        Text('Payment from ',
-                                                            style: TextStyle(
-                                                                color: Color(0x99070d59),
-                                                                fontFamily: theme.poppinsRegular,
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w300)),
-                                                        Text('Harvey',
-                                                            style: TextStyle(
-                                                                color: Color(0x99070d59),
-                                                                fontFamily: theme.poppinsRegular,
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w600)),
-                                                      ],
-                                                    ),
-                                                    Text('Aug 22',
-                                                        style: TextStyle(
-                                                            color: Color(0x99070d59),
-                                                            fontFamily: theme.poppinsRegular,
-                                                            fontSize: 14,
-                                                            fontWeight: FontWeight.w300)),
-                                                  ])
-                                                ]))
-                                          ]),
-                                        );
-                                      }),
-                                ),
-                              ),
-                              SizedBox(height: 10)
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: expenseData.length,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return Column(children: [
+                                      SizedBox(height: 10),
+                                      Row(children: [
+                                        Text(expenseData[index].keys.toList()[0].toString().toUpperCase(),
+                                            style: TextStyle(color: Colors.blueGrey[200], fontFamily: theme.poppinsBold, fontSize: 16)),
+                                      ]),
+                                      SizedBox(height: 10),
+                                      Container(
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: Colors.white),
+                                        child: ListView.separated(
+                                            shrinkWrap: true,
+                                            separatorBuilder: (context, index) => Divider(height: 0, color: Color(0xfff1f1f1)),
+                                            itemCount: expenseData[index][expenseData[index].keys.toList()[0]].length,
+                                            physics: NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, itemIndex) {
+                                              return selectedFilter == null ||
+                                                      selectedFilter != null &&
+                                                          selectedFilter == 'income' &&
+                                                          !expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['isSpend'] ||
+                                                      selectedFilter != null &&
+                                                          selectedFilter == 'expense' &&
+                                                          expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['isSpend']
+                                                  ? Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                                      child: TransactionDetails(
+                                                          theme: theme,
+                                                          name: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['name'],
+                                                          image: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['image'],
+                                                          amount: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['amount'],
+                                                          isSpend: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['isSpend'],
+                                                          date: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]['date'],
+                                                          transferBy: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]
+                                                              ['transferBy'],
+                                                          expenseDetail: expenseData[index][expenseData[index].keys.toList()[0]][itemIndex]
+                                                              ['expenseDetail']),
+                                                    )
+                                                  : Container();
+                                            }),
+                                      ),
+                                    ]);
+                                  }),
+                              SizedBox(height: 20)
                             ])),
                       ))),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  color: Color(0xfff1f1f1),
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
-                        },
-                        child: Opacity(
-                          opacity: 0.3,
-                          child: Column(children: [
-                            Container(width: 30, height: 30, child: Icon(Icons.home, size: 25, color: Color(0xff1f3c88))),
-                            Text('Home', style: TextStyle(color: Color(0xff1f3c88), fontFamily: theme.poppinsSemibold, fontSize: 14))
-                          ]),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage()));
-                        },
-                        child: Column(children: [
-                          Container(width: 30, height: 30, child: Icon(Icons.history, size: 25, color: Color(0xff1f3c88))),
-                          Text('History', style: TextStyle(color: Color(0xff1f3c88), fontFamily: theme.poppinsSemibold, fontSize: 14))
-                        ]),
-                      ),
-                      Column(children: [
-                        Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(color: Color(0xff1f3c88), borderRadius: BorderRadius.all(Radius.circular(12))),
-                            child:
-                                Center(child: Text('+', style: TextStyle(color: Color(0xfff1f1f1), fontFamily: theme.poppinsRegular, fontSize: 25)))),
-                      ]),
-                      Opacity(
-                        opacity: 0.3,
-                        child: Column(children: [
-                          Container(width: 30, height: 30, child: Icon(Icons.credit_card, size: 25, color: Color(0xff1f3c88))),
-                          Text('Cards', style: TextStyle(color: Color(0xff1f3c88), fontFamily: theme.poppinsSemibold, fontSize: 14))
-                        ]),
-                      ),
-                      Opacity(
-                        opacity: 0.3,
-                        child: Column(children: [
-                          Container(width: 30, height: 30, child: Icon(Icons.person_outline, size: 25, color: Color(0xff1f3c88))),
-                          Text('Profile', style: TextStyle(color: Color(0xff1f3c88), fontFamily: theme.poppinsSemibold, fontSize: 14))
-                        ]),
-                      ),
-                    ]),
-                  ),
-                ),
-              )
+              BottomNavBar(theme: theme, index: 1)
             ]),
           )),
     ));
